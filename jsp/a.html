@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url('image.png');
+            font-family: Arial, sans-serif; /* 设置字体 */
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="password"],
+        input[type="email"],
+        select,
+        button {
+            width: calc(100% - 16px); /* 计算宽度，减去边框宽度 */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        /* 设置文本框的高度 */
+        input[type="text"],
+        input[type="number"],
+        input[type="password"],
+        input[type="email"] {
+            height: 30px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+            margin: auto; /* 让按钮水平居中 */
+            display: block; /* 设置为块级元素，使其独占一行 */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <title>JSP</title>
+</head>
+<body>
+<div class="container">
+    <label for="Text_Name">姓名:</label>
+    <input type="text" id="Text_Name">
+
+    <button onclick="checkName()">提交姓名</button>
+
+    <label for="Text_Score">四级成绩:</label>
+    <input type="number" id="Text_Score">
+
+    <button onclick="checkScore()">提交</button>
+
+    <label>性别:</label>
+    <input type="radio" name="sex" id="male" value="男"> 男
+    <input type="radio" name="sex" id="female" value="女"> 女
+
+    <button onclick="checkSexType()">提交性别</button>
+
+    <label>爱好:</label>
+    <input type="checkbox" name="hobby" value="sing"> 唱歌
+    <input type="checkbox" name="hobby" value="dance"> 跳舞
+    <input type="checkbox" name="hobby" value="sports"> 运动
+
+    <label for="selectBox">省份:</label>
+    <select id="selectBox">
+        <option value="shanxi">陕西</option>
+        <option value="shanghai">上海</option>
+        <option value="beijing">北京</option>
+    </select>
+    <button onclick="check()">检查下拉列表</button>
+
+    <input type="file" id="fileInput">
+    <button onclick="checkFileType()">提交文件</button>
+
+    <label for="password">输入密码:</label>
+<input type="password" id="password">
+
+<label for="password1">再次输入密码:</label>
+<input type="password" id="password1"> <!-- 不同的id -->
+
+<button onclick="validatePassword()">验证密码</button>
+
+
+    <label for="email">邮箱:</label>
+    <input type="email" id="email">
+    <button onclick="validateEmail()">验证邮箱</button><br><br>
+
+    <!-- 添加按钮以跳转到另一个页面 -->
+    <button onclick="redirectToPoemPage()">跳转到诗歌页面</button>
+</div>
+
+<script>
+    function checkName() {
+        var name = document.getElementById("Text_Name").value;
+        alert(name);
+    }
+
+    function checkScore() {
+        var name = document.getElementById("Text_Score").value;
+        if (name > 710 || name < 0) {
+            alert("输入正确的数字")
+        } else if (name > 425) {
+            alert("过了");
+        } else {
+            alert("没过");
+        }
+    }
+
+    function checkFileType() {
+        var fileInput = document.getElementById("fileInput");
+        var filePath = fileInput.value;
+        if (filePath.endsWith(".jpg") || filePath.endsWith(".jpeg")) {
+            alert("这是jpg文件")
+        } else {
+            alert("不是jpg文件")
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        var password1 = document.getElementById("password1").value;
+        var passwordRegex = /^[A-Za-z0-9]{8,}$/; // Password must be at least 8 characters long
+    
+        if (passwordRegex.test(password)) {
+            if (password === password1) {
+                alert("密码设置正确：" + password);
+            } else {
+                alert("两次输入的密码不一致");
+            }
+        } else if (password.length < 8) {
+            alert("密码长度必须至少为8位");
+        } else {
+            alert("密码包含非法字符");
+        }
+    }
+    
+
+
+    function checkSexType() {
+        var sexRadios = document.getElementsByName("sex");
+
+        var selectedSex = "";
+        for (var i = 0; i < sexRadios.length; i++) {
+            if (sexRadios[i].checked) {
+                selectedSex = sexRadios[i].value;
+                break;
+            }
+        }
+
+        if (selectedSex === "") {
+            alert("请输入你的性别！");
+        } else {
+            alert("选择的性别是 " + selectedSex);
+        }
+    }
+
+    function check() {
+        var selectBox = document.getElementById("selectBox");
+        var selectedProvince = selectBox.options[selectBox.selectedIndex].text;
+        alert("选中的省份是：" + selectedProvince);
+    }
+
+    function validateEmail() {
+        var email = document.getElementById("email").value;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(email)) {
+            alert("邮箱格式正确：" + email);
+        } else {
+            alert("邮箱格式不正确！");
+        }
+    }
+
+    // 跳转到诗歌页面的函数
+    function redirectToPoemPage() {
+        window.location.href = "../poem/PoetTable.html";
+    }
+</script>
+
+</body>
+</html>
